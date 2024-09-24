@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -15,24 +16,23 @@ import org.springframework.stereotype.Service;
 public class MovieRecommendationService {
   private static final String INSTRUCTIONS_PROMPT_MESSAGE =
       """
+      You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=%s.
 
-            You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=%s.
-
-            Write the final recommendation using the following template:
-                Movie Name:
-                Synopsis:
-                Cast:
-            """;
+      Write the final recommendation using the following template:
+          Movie Name:
+          Synopsis:
+          Cast:
+      """;
 
   private static final String EXAMPLES_PROMPT_MESSAGE =
       """
-                Use the `movies_list`
-                below to read each `movie_name`.
-                Recommend similar movies to the ones presented in `movies_list`
-                that falls exactly or close to the `movie_genre`provided.
-                `movies_list`:
-                %s
-            """;
+      Use the `movies_list`
+      below to read each `movie_name`.
+      Recommend similar movies to the ones presented in `movies_list`
+      that falls exactly or close to the `movie_genre`provided.
+      `movies_list`:
+      %s
+      """;
 
   private final OllamaChatModel ollamaChatClient;
 
@@ -47,7 +47,8 @@ public class MovieRecommendationService {
 
     var prompt = new Prompt(currentPromptMessage);
 
-    return ollamaChatClient.call(prompt).getResult().getOutput().getContent();
+    AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
+    return message.getContent();
   }
 
   public String recommend(String genre, List<String> movies) {
@@ -59,7 +60,8 @@ public class MovieRecommendationService {
     String content = "";
 
     try {
-      content = ollamaChatClient.call(prompt).getResult().getOutput().getContent();
+      AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
+      content = message.getContent();
     } catch (Exception e) {
       log.error("Error while calling OllamaChatClient", e);
     }
