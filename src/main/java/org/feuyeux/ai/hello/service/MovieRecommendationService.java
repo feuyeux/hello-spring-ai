@@ -42,11 +42,8 @@ public class MovieRecommendationService {
 
   public String recommend(String genre) {
     var generalInstructions = String.format(INSTRUCTIONS_PROMPT_MESSAGE, genre);
-
     var currentPromptMessage = new UserMessage(generalInstructions);
-
     var prompt = new Prompt(currentPromptMessage);
-
     AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
     return message.getContent();
   }
@@ -58,7 +55,6 @@ public class MovieRecommendationService {
         new SystemMessage(String.format(EXAMPLES_PROMPT_MESSAGE, moviesCollected));
     var prompt = new Prompt(List.of(generalInstructions, examplesSystemMessage));
     String content = "";
-
     try {
       AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
       content = message.getContent();

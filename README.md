@@ -50,6 +50,7 @@ $ curl -s 'http://localhost:8080/movies/recommend' --header 'Content-Type: appli
         "Eyes Wide Shut"
     ]
 }' | jq '.message' | sed 's/\\n/\n/g; s/\\t/\t/g'
+
 "You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=thriller.
 
 Here are my top recommendations for you:
