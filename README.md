@@ -1,5 +1,7 @@
 # hello-spring-ai
 
+![](https://images.ctfassets.net/mnrwi97vnhts/3Q5FXZrrY37SmOkOqyc7r6/1f47075ab3df565fd6402473a2514045/Restored_Spring_AI__1_.jpg)
+
 ## Model
 
 config: `src/main/resources/application.yml`
