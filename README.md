@@ -25,7 +25,7 @@ spring:
       base-url: http://localhost:11434
       chat:
         options:
-          model: llama3.2
+          model:  x/llama3.2-vision
 ```
 
 make sure the `ollama` service is running, and the `llama3.2` model is available.
@@ -82,3 +82,4 @@ $ curl -s 'http://localhost:8080/movies/recommend' --header 'Content-Type: appli
 - <https://docs.spring.io/spring-ai/reference>
 - <https://github.com/spring-projects/spring-ai>
 - <https://pedrolopesdev.com/intro-to-spring-ai-ollama/>
+- <https://github.com/danvega/awesome-spring-ai>
