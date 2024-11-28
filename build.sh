@@ -5,5 +5,10 @@ cd "$(
 )/" || exit
 set -e
 
-export JAVA_HOME=/d/zoo/jdk-21.0.3
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home
+else
+  export JAVA_HOME=/d/zoo/jdk-21.0.3
+fi
+
 mvn clean install -DskipTests

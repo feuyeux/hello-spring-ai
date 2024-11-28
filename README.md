@@ -48,6 +48,24 @@ $ jq --version
 jq-1.7.1
 ```
 
+```text
+You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=%s.
+
+      Write the final recommendation using the following template:
+          Movie Name:
+          Synopsis:
+          Cast:
+```
+
+```text
+Use the `movies_list`
+below to read each `movie_name`.
+Recommend similar movies to the ones presented in `movies_list`
+that falls exactly or close to the `movie_genre`provided.
+`movies_list`:
+%s
+```
+
 ```sh
 $ curl -s 'http://localhost:8080/movies/recommend' --header 'Content-Type: application/json' --data '{
     "genre": "thriller",
@@ -57,38 +75,10 @@ $ curl -s 'http://localhost:8080/movies/recommend' --header 'Content-Type: appli
         "Eyes Wide Shut"
     ]
 }' | jq '.message' | sed 's/\\n/\n/g; s/\\t/\t/g'
-
-"You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=thriller.
-
-Here are my top recommendations for you:
-
-**Movie 1:**
-Se7en:
-Synopsis: Two detectives, one a veteran and the other a rookie, hunt down a serial killer who is using the seven deadly sins as a motif for his murders.
-Cast: Morgan Freeman, Brad Pitt, Gwyneth Paltrow
-
-**Movie 2:**
-Memento:
-Synopsis: A former insurance investigator suffers from short-term memory loss and sets out to avenge his wife's murder, using a system of tattoos and notes to hunt down her killer.
-Cast: Guy Pearce, Carrie-Anne Moss, Joe Pantoliano
-
-**Movie 3:**
-Gone Girl:
-Synopsis: A couple's seemingly perfect marriage turns out to be a facade when the wife goes missing, and the husband becomes the prime suspect in her disappearance.
-Cast: Ben Affleck, Rosamund Pike, Neil Patrick Harris
-
-**Movie 4:**
-Prisoners:
-Synopsis: Two families are torn apart by the abduction of their daughters, leading the desperate fathers to take matters into their own hands and seek justice.
-Cast: Hugh Jackman, Jake Gyllenhaal, Viola Davis
-
-**Movie 5:**
-Shutter Island:
-Synopsis: A U.S. Marshal investigates a mental institution where patients have been mysteriously disappearing, but he soon discovers that his own sanity is at stake.
-Cast: Leonardo DiCaprio, Mark Ruffalo, Ben Kingsley"
 ```
 
 ## Reference
 
 - <https://docs.spring.io/spring-ai/reference>
-- https://github.com/spring-projects/spring-ai
+- <https://github.com/spring-projects/spring-ai>
+- <https://pedrolopesdev.com/intro-to-spring-ai-ollama/>

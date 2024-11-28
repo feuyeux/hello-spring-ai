@@ -1,5 +1,6 @@
 package org.feuyeux.ai.hello;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.feuyeux.ai.hello.service.MovieRecommendationService;
 import org.junit.jupiter.api.Test;
@@ -9,17 +10,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 @SpringBootTest
 class HelloSpringAiApplicationTests {
-    @Autowired
-    private MovieRecommendationService movieRecommendationService;
+  @Autowired private MovieRecommendationService movieRecommendationService;
 
-    @Test
-    public void testRecommendation() {
-        String recommend = movieRecommendationService.recommend("thriller");
-        log.info("recommend:{}", recommend);
-    }
+  @Test
+  public void testRecommendation() {
+    String recommend = movieRecommendationService.recommend("thriller");
+    log.info("recommend:{}", recommend);
+  }
 
-    @Test
-    public void test() {
-        log.info("Hello Spring AI");
-    }
+  @Test
+  public void testRecommendation2() {
+    String recommend = movieRecommendationService.recommend("romance", List.of("Boy"));
+    log.info("recommend:{}", recommend);
+  }
+
+  @Test
+  public void test() {
+    log.info("Hello Spring AI");
+  }
 }
