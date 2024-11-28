@@ -22,19 +22,18 @@ public class MovieRecommendationService {
   }
 
   public String recommend(String genre) {
-    var generalInstructions = String.format("Give me 5 movie recommendations on the genre %s", genre);
+    var generalInstructions =
+        String.format("Give me 5 movie recommendations on the genre %s", genre);
     var currentPromptMessage = new UserMessage(generalInstructions);
     var prompt = new Prompt(currentPromptMessage);
     AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
     return message.getContent();
   }
 
-
-
   private static final String INSTRUCTIONS_PROMPT_MESSAGE =
-          """
+      """
           You're a movie recommendation system. Recommend exactly 5 movies on `movie_genre`=%s.
-    
+
           Write the final recommendation using the following template:
               Movie Name:
               Synopsis:
@@ -42,7 +41,7 @@ public class MovieRecommendationService {
           """;
 
   private static final String EXAMPLES_PROMPT_MESSAGE =
-          """
+      """
           Use the `movies_list`
           below to read each `movie_name`.
           Recommend similar movies to the ones presented in `movies_list`
@@ -54,9 +53,8 @@ public class MovieRecommendationService {
   public String recommend(String genre, List<String> movies) {
     var generalInstructions = new UserMessage(String.format(INSTRUCTIONS_PROMPT_MESSAGE, genre));
 
-    var moviesCollected = movies.stream()
-            .map(movie -> "`movie_name`=" + movie)
-            .collect(joining("\n", "", "\n"));
+    var moviesCollected =
+        movies.stream().map(movie -> "`movie_name`=" + movie).collect(joining("\n", "", "\n"));
     var examplesSystemMessage =
         new SystemMessage(String.format(EXAMPLES_PROMPT_MESSAGE, moviesCollected));
 
