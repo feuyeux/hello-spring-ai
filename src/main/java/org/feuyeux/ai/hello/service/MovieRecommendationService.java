@@ -8,17 +8,19 @@ import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.stereotype.Service;
+import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
+import org.springframework.ai.zhipuai.ZhiPuAiChatOptions;
+import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
 
 @Slf4j
-@Service
 public class MovieRecommendationService {
+  ZhiPuAiChatModel chatModel;
 
-  private final OllamaChatModel ollamaChatClient;
-
-  public MovieRecommendationService(OllamaChatModel ollamaChatClient) {
-    this.ollamaChatClient = ollamaChatClient;
+  public MovieRecommendationService() {
+    var apiKey = System.getenv("ZHIPUAI_API_KEY");
+    var zhiPuAiApi = new ZhiPuAiApi("https://open.bigmodel.cn/api/paas", apiKey);
+    var chatOptions = ZhiPuAiChatOptions.builder().model("GLM-4-Plus").temperature(0.7).build();
+    chatModel = new ZhiPuAiChatModel(zhiPuAiApi, chatOptions);
   }
 
   public String recommend(String genre) {
@@ -26,8 +28,8 @@ public class MovieRecommendationService {
         String.format("Give me 5 movie recommendations on the genre %s", genre);
     var currentPromptMessage = new UserMessage(generalInstructions);
     var prompt = new Prompt(currentPromptMessage);
-    AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
-    return message.getContent();
+    AssistantMessage message = chatModel.call(prompt).getResult().getOutput();
+    return message.toString();
   }
 
   private static final String INSTRUCTIONS_PROMPT_MESSAGE =
@@ -62,10 +64,10 @@ public class MovieRecommendationService {
     log.info("Prompt: {}", prompt);
 
     try {
-      AssistantMessage message = ollamaChatClient.call(prompt).getResult().getOutput();
-      return message.getContent();
+      AssistantMessage message = chatModel.call(prompt).getResult().getOutput();
+      return message.toString();
     } catch (Exception e) {
-      log.error("Error while calling OllamaChatClient", e);
+      log.error("Error while calling ChatClient", e);
     }
     return "";
   }
