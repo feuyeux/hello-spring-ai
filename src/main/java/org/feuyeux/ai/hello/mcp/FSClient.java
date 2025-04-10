@@ -1,7 +1,6 @@
 package org.feuyeux.ai.hello.mcp;
 
 import static org.feuyeux.ai.hello.utils.DirUtils.getUserDir;
-import static org.feuyeux.ai.hello.utils.DotEnv.loadEnv;
 import static org.feuyeux.ai.hello.utils.NpxUtils.buildNpxCmd;
 
 import io.modelcontextprotocol.client.McpClient;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FSClient {
   public static McpSyncClient buildFSClient() {
-    loadEnv();
     String userDir = getUserDir();
     var stdioParams =
         ServerParameters.builder(buildNpxCmd())

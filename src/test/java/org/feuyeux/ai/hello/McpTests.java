@@ -4,15 +4,21 @@ import static org.feuyeux.ai.hello.ai.ModelClient.buildModel;
 import static org.feuyeux.ai.hello.mcp.FSClient.buildFSClient;
 import static org.feuyeux.ai.hello.mcp.MapClient.buildMapClient;
 import static org.feuyeux.ai.hello.utils.DirUtils.getUserDir;
+import static org.feuyeux.ai.hello.utils.DotEnv.loadEnv;
 
 import io.modelcontextprotocol.client.McpSyncClient;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 
 @Slf4j
 public class McpTests {
+  @BeforeAll
+  public static void init() {
+    loadEnv();
+  }
 
   @Test
   public void testFSMcp() {

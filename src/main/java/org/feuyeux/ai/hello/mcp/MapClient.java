@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MapClient {
 
   public static McpSyncClient buildMapClient() {
-    loadEnv();
     var stdioParams =
         ServerParameters.builder(buildNpxCmd())
             .args("-y", "@amap/amap-maps-mcp-server")
