@@ -26,6 +26,24 @@ AMAP_MAPS_API_KEY=高德地图APIKEY
 
 ## Test
 
+```java
+@Test
+public void testMapMcp() {
+  try (McpSyncClient mapClient = buildMapClient();
+      McpSyncClient fsClient = buildFSClient()) {
+    ChatClient chatClient =
+        ChatClient.builder(buildModel())
+            .defaultTools(new SyncMcpToolCallbackProvider(mapClient, fsClient))
+            .build();
+    String question =
+        "我要开车从 '北京海淀区互联网金融中心' 到 '国家游泳中心(水立方)'。帮我规划路线，将结果以表格形式保存到 " + getUserDir() + " 目录";
+    log.info("MAP QUESTION: {}", question);
+    String content = chatClient.prompt(question).call().content();
+    log.info("MAP ASSISTANT: {}", content);
+  }
+}
+```
+
 ```sh
 $ mvn test -Dtest=org.feuyeux.ai.hello.McpTests#testMapMcp
 
