@@ -42,9 +42,13 @@ public class McpTests {
               .defaultTools(new SyncMcpToolCallbackProvider(mapClient, fsClient))
               .build();
       String question =
-          "我要开车从 '北京海淀区互联网金融中心' 到 '国家游泳中心(水立方)'。帮我规划路线，将结果以表格形式保存到 " + getUserDir() + " 目录";
+          "我要开车从 '北京海淀区互联网金融中心' 到 '国家游泳中心(水立方)'。帮我规划路线，将结果以表格形式保存到 "
+              + getUserDir()
+              + " 目录，文件名为 'amap.md'。";
       log.info("MAP QUESTION: {}", question);
-      String content = chatClient.prompt(question).call().content();
+      ChatClient.ChatClientRequestSpec requestSpec = chatClient.prompt(question);
+      ChatClient.CallResponseSpec responseSpec = requestSpec.call();
+      String content = responseSpec.content();
       log.info("MAP ASSISTANT: {}", content);
     }
   }

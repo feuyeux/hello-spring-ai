@@ -59,6 +59,61 @@ $ mvn test -Dtest=org.feuyeux.ai.hello.McpTests#testMapMcp
 14:04:11.033 MAP ASSISTANT: 已经为您规划了从北京海淀区互联网金融中心到国家游泳中心(水立方)的驾车路线，并将结果保存为表格形式到D:\ai\hello-spring-ai\driving_route.csv文件中。您可以根据件内容查看详细的路线信息。
 ```
 
+## Coding
+
+org.springframework.ai.zhipuai.ZhiPuAiChatModel#call
+
+![tool_call](tool_call.png)
+
+JavaSDKMCPClient_maps_geo
+
+```
+AssistantMessage [
+messageType=ASSISTANT, 
+toolCalls=[
+ToolCall[id=call_-8802637004939132034, type=function, name=JavaSDKMCPClient_maps_geo, arguments={"address": "北京海淀区互联网金融中心"}], ToolCall[id=call_-8802637004939132033, type=function, name=JavaSDKMCPClient_maps_geo, arguments={"address": "国家游泳中心(水立方)"}]
+], 
+textContent=null, 
+metadata={finishReason=TOOL_CALLS, id=2025041212291987bc34201aa24335, role=ASSISTANT, messageType=ASSISTANT}
+]
+```
+
+JavaSDKMCPClient_maps_direction_driving
+
+```
+AssistantMessage [
+messageType=ASSISTANT, 
+toolCalls=[
+ToolCall[id=call_-8802646694386850541, type=function, name=JavaSDKMCPClient_maps_direction_driving, arguments={"origin": "116.313133,39.979318", "destination": "116.390397,39.992834"}]
+], 
+textContent=null, 
+metadata={finishReason=TOOL_CALLS, id=202504121231322f677f6360134feb, role=ASSISTANT, messageType=ASSISTANT}
+]
+```
+
+JavaSDKMCPClient_write_file
+
+```
+AssistantMessage [
+messageType=ASSISTANT, 
+toolCalls=[
+ToolCall[id=call_-8802639959877074140, type=function, name=JavaSDKMCPClient_write_file, arguments={"content": "| 步骤 | 指令 | 距离(米) | 预计时间(秒) |\n| --- | --- | --- | --- |\n| 1 | 向西行驶26米右转 | 26 | 14 |\n| 2 | 沿海淀东三街向西北行驶130米右转 | 130 | 26 |\n| 3 | 沿善缘街向东北行驶168米右转 | 168 | 33 |\n| 4 | 沿海淀东一街向东行驶267米左转进入主路 | 267 | 64 |\n| 5 | 沿中关村大街向北行驶487米右转 | 487 | 84 |\n| 6 | 沿北四环西路辅路向东行驶342米向左前方行驶进入主路 | 342 | 57 |\n| 7 | 沿北四环西路入口途径北四环西路、北四环中路向东行驶6.6千米向左前方行驶 | 6584 | 344 |\n| 8 | 沿北四环中路出口途径北辰东路向北行驶1.4千米左转 | 1367 | 218 |\n| 9 | 沿国家体育场北路向西行驶750米左转 | 750 | 170 |\n| 10 | 沿天辰东路向南行驶444米右转 | 444 | 90 |\n| 11 | 向西行驶16米左转 | 16 | 11 |\n| 12 | 向西南行驶290米到达目的地 | 290 | 97 |", "path": "D:\\ai\\hello-spring-ai\\amap.md"}]
+], 
+textContent=null, 
+metadata={finishReason=TOOL_CALLS, id=2025041212321259a77dc78cf84665, role=ASSISTANT, messageType=ASSISTANT}
+]
+```
+
+无工具调用
+
+```
+AssistantMessage [
+messageType=ASSISTANT, 
+toolCalls=[], textContent=路线规划已完成，并以表格形式保存到文件 `D:\ai\hello-spring-ai\amap.md` 中。您可以根据该文件中的指引开车从 '北京海淀区互联网金融中心' 到 '国家游泳中心(水立方)'。祝您旅途愉快！, metadata={finishReason=STOP, id=20250412123324a6991a3f70ad4d1c, role=ASSISTANT, messageType=ASSISTANT}
+]
+````
+
+
 
 ## Reference
 
