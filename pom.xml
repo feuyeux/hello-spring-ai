@@ -13,7 +13,7 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>
-        <jupiter.version>5.12.1</jupiter.version>
+        <jupiter.version>5.12.2</jupiter.version>
         <lombok.version>1.18.38</lombok.version>
         <logback.version>1.5.18</logback.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
