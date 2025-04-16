@@ -1,0 +1,8 @@
+spring:
+  ai:
+    mcp:
+      client:
+        toolcallback:
+          enabled: true
+  main.web-application-type: none
+  application.name: mcp

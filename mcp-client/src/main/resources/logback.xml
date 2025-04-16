@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%red(%d{HH:mm:ss.SSS}) %blue([%logger{15}]) %highlight(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache" level="ERROR" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="Console" />
+    </root>
+</configuration>

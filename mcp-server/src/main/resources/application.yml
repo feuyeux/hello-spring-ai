@@ -1,0 +1,10 @@
+logging:
+  pattern:
+    console:
+spring:
+  main:
+    banner-mode: off
+server:
+  port: 8061
+spring.ai.mcp.server.name: hello-server
+spring.ai.mcp.server.version: 0.0.1
