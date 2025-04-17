@@ -1,8 +1,8 @@
 # hello-spring-ai
 
-| spring-ai-integration | RAG  | Function Calling | Spring AI Message |
+| spring-ai-integration | RAG  | Tool Calling | Spring AI Message |
 | --------------------- | ---- | ---------------- | ----------------- |
-|   ![spring-ai-integration-diagram-3](https://docs.spring.io/spring-ai/reference/_images/spring-ai-integration-diagram-3.svg)                    |  ![spring-ai-rag](https://docs.spring.io/spring-ai/reference/_images/spring-ai-rag.jpg)    |    ![function-calling-basic-flow](https://docs.spring.io/spring-ai/reference/_images/function-calling-basic-flow.jpg)              |  ![spring-ai-message-api](https://docs.spring.io/spring-ai/reference/_images/spring-ai-message-api.jpg)                 |
+|   ![spring-ai-integration-diagram-3](https://docs.spring.io/spring-ai/reference/_images/spring-ai-integration-diagram-3.svg)                    |  ![spring-ai-rag](https://docs.spring.io/spring-ai/reference/_images/spring-ai-rag.jpg)    |    ![tool-calling-basic-flow](https://docs.spring.io/spring-ai/reference/_images/tools/tool-calling-01.jpg)              |  ![spring-ai-message-api](https://docs.spring.io/spring-ai/reference/_images/spring-ai-message-api.jpg)                 |
 
 ## Run
 
@@ -73,7 +73,7 @@ $ mvn test "-Dtest=org.feuyeux.ai.hello.McpTests#testMapMcp"
 ### UT
 
 ```java
-@Test
+@ImageTests
 public void testMapMcp() {
   try (McpSyncClient mapClient = buildMapClient();
       McpSyncClient fsClient = buildFSClient()) {

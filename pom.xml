@@ -16,8 +16,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>common</module>
         <module>mcp-server</module>
         <module>mcp-client</module>
+        <module>image-model</module>
     </modules>
 
     <properties>

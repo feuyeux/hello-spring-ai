@@ -1,12 +1,12 @@
 package org.feuyeux.ai.hello.utils;
 
-import static java.util.Optional.ofNullable;
-
 import java.io.FileReader;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 /** 环境变量和配置工具接口 负责加载和管理配置信息，从.env文件或系统环境变量中获取API密钥等信息 */
 public interface DotEnv {
@@ -19,7 +19,25 @@ public interface DotEnv {
    */
   static String getZhipuAiKey() {
     return valueOf("ZHIPUAI_API_KEY")
-        .orElseThrow(() -> new IllegalArgumentException("no ZHIPUAI APIKEY provided!"));
+        .orElseThrow(() -> new IllegalArgumentException("no ZHIPUAI_API_KEY provided!"));
+  }
+
+  static String[] getQianfanModelApiKeys() {
+    return new String[]{
+        valueOf("QIANFAN_ACCESS_KEY")
+            .orElseThrow(() -> new IllegalArgumentException("no QIANFAN_ACCESS_KEY provided!")),
+        valueOf("QIANFAN_SECRET_KEY")
+            .orElseThrow(() -> new IllegalArgumentException("no QIANFAN_SECRET_KEY provided!"))
+    };
+  }
+
+  static String[] getQianfanTokenKeys() {
+    return new String[]{
+        valueOf("QIANFAN_API_KEY")
+            .orElseThrow(() -> new IllegalArgumentException("no QIANFAN_API_KEY provided!")),
+        valueOf("QIANFAN_API_SECRET_KEY")
+            .orElseThrow(() -> new IllegalArgumentException("no QIANFAN_API_SECRET_KEY provided!"))
+    };
   }
 
   /**
@@ -77,23 +95,28 @@ public interface DotEnv {
   static void loadEnv() {
     // 搜索.env文件
     Path path = Paths.get(".").toAbsolutePath();
-    Path filePath = Paths.get(path.toString(), ".env");
-    for (int i = 0; !filePath.toFile().exists(); ++i) {
-      path = path.getParent();
+    Path filePath;
+    int maxDepth = 5; // 限制递归深度，避免无限循环
+    for (int i = 0; i < maxDepth; i++) {
       filePath = Paths.get(path.toString(), ".env");
-      if (i == 3) {
-        throw new RuntimeException("no .env file found!");
+      if (filePath.toFile().exists()) {
+        // 加载.env内容到系统属性
+        try {
+          final java.util.Properties properties = new java.util.Properties();
+          try (Reader r = new FileReader(filePath.toFile())) {
+            properties.load(r);
+          }
+          System.getProperties().putAll(properties);
+        } catch (Exception e) {
+          throw new RuntimeException("Error loading .env file: " + e.getMessage(), e);
+        }
+        return;
+      }
+      path = path.getParent();
+      if (path == null) {
+        break; // 已到达文件系统根目录
       }
     }
-    // 加载.env内容到系统属性
-    try {
-      final java.util.Properties properties = new java.util.Properties();
-      try (Reader r = new FileReader(filePath.toFile())) {
-        properties.load(r);
-      }
-      System.getProperties().putAll(properties);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    throw new RuntimeException("No .env file found within " + maxDepth + " levels of directory hierarchy!");
   }
 }

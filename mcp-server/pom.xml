@@ -29,7 +29,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Boot Test Dependencies -->
+        <!-- Spring Boot ImageTests Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

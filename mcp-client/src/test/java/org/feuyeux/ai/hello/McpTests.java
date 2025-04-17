@@ -36,15 +36,15 @@ public class McpTests {
    */
   @Test
   @DisplayName("测试按原子序数查询元素")
-  public void testHelloMcp() {
+  public void testElementByPosition() {
     try (McpSyncClient mcpClient = buildHelloClient()) {
       ChatClient chatClient =
           ChatClient.builder(buildModel())
               .defaultTools(new SyncMcpToolCallbackProvider(mcpClient))
               .build();
       String question = "列出元素周期表的第14个元素的详细信息";
-      log.info("QUESTION: {}", question);
-      log.info("ASSISTANT: {}", chatClient.prompt(question).call().content());
+      log.info("Hello ElementByPosition QUESTION: {}", question);
+      log.info("Hello ElementByPosition ASSISTANT: {}", chatClient.prompt(question).call().content());
     }
   }
 
@@ -62,8 +62,8 @@ public class McpTests {
               .defaultTools(new SyncMcpToolCallbackProvider(mcpClient))
               .build();
       String question = "请告诉我元素'氧'的详细信息";
-      log.info("QUESTION: {}", question);
-      log.info("ASSISTANT: {}", chatClient.prompt(question).call().content());
+      log.info("Hello ElementByName QUESTION: {}", question);
+      log.info("Hello ElementByName ASSISTANT: {}", chatClient.prompt(question).call().content());
     }
   }
 
@@ -81,8 +81,8 @@ public class McpTests {
               .defaultTools(new SyncMcpToolCallbackProvider(mcpClient))
               .build();
       String question = "比较元素周期表中的铁(Fe)和金(Au)的特性";
-      log.info("QUESTION: {}", question);
-      log.info("ASSISTANT: {}", chatClient.prompt(question).call().content());
+      log.info("Hello MultipleElements QUESTION: {}", question);
+      log.info("Hello MultipleElements ASSISTANT: {}", chatClient.prompt(question).call().content());
     }
   }
 
