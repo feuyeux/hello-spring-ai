@@ -32,7 +32,7 @@
         <log4j-slf4j.version>2.24.3</log4j-slf4j.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
         <!-- mcp -->
-        <mcp.version>0.11.0</mcp.version>
+        <mcp.version>0.11.1</mcp.version>
         <spring-ai.version>1.0.1</spring-ai.version>
     </properties>
 
